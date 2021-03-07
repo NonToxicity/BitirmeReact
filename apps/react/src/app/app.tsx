@@ -4,7 +4,7 @@ import { configureStore } from '@internship/config';
 import { Routes } from './Routes';
 import { PersistGate } from 'redux-persist/integration/react';
 import persistStore from 'redux-persist/es/persistStore';
-import {MainPage} from "./pages";
+import { Navigation } from '@internship/ui';
 
 // ... normal setup, create store and persistor, import components etc.
 const store = configureStore();
@@ -15,7 +15,7 @@ export const App = () => {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <Routes>
-          <MainPage />
+          <Navigation />
         </Routes>
       </PersistGate>
     </Provider>
