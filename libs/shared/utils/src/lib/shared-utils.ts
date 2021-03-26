@@ -24,3 +24,21 @@ export const getUrlParameter = (name, search) => {
   const results = regex.exec(search);
   return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
+
+export const loadMapApi = () => {
+  const mapsURL = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBEn7yQO2-MvbKL9n7rTM9OkrhRyFWaKkc&libraries=places&language=TR&region=TR&v=quarterly`;
+  const scripts = document.getElementsByTagName('script');
+  for (let i = 0; i < scripts.length; i++) {
+    if (scripts[i].src.indexOf(mapsURL) === 0) {
+      return scripts[i];
+    }
+  }
+
+  const googleMapScript = document.createElement('script');
+  googleMapScript.src = mapsURL;
+  googleMapScript.async = true;
+  googleMapScript.defer = true;
+  window.document.body.appendChild(googleMapScript);
+
+  return googleMapScript;
+};
