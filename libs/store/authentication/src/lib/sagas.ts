@@ -3,7 +3,7 @@ import {
   logoutAsync,
   resetpasswordAsync,
   updateAsync,
-  updateLogout
+  updateLogout, whatIfAsync
 } from './actions';
 import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
 import { api } from '@internship/shared/api';
@@ -64,10 +64,23 @@ function* doChangePassword({ payload }) {
   }
 }
 
+function* doWhatIfWorld({ payload }) {
+  try {
+    yield call(api.auth.whatIfPost, payload);
+    yield put(whatIfAsync.success({}));
+  } catch (e) {
+    console.error(e);
+    yield put(whatIfAsync.failure(e));
+  }
+}
+
 function* watchResetPassword() {
   yield takeLatest(resetpasswordAsync.request, doResetPassword);
 }
 
+function* watchWhatIf() {
+  yield takeLatest(whatIfAsync.request, doWhatIfWorld);
+}
 
 function* watchLogout() {
   yield takeLatest(logoutAsync.request, doLogout);
@@ -90,5 +103,6 @@ export function* authenticationSaga() {
     fork(watchResetPassword),
     fork(watchChangePassword),
     fork(watchUpdateLogout),
+    fork(watchWhatIf),
   ]);
 }

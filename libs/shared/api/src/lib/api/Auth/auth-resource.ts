@@ -2,14 +2,13 @@ import axiosStatic, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import {
   CountriesResponse,
   DayOneResponse, StatusResponse,
-  SummaryResponse, TestsResponse, TravelDataResponse,
+  SummaryResponse, TestsResponse,
   UserDetailResponse,
-  UserInfoResponse
 } from './types';
 import {
   ChangePasswordRequest,
   LogoutRequest,
-  ResetPasswordRequest,
+  ResetPasswordRequest, WhatIfRequest,
 } from '@internship/shared/types';
 
 export class AuthResource {
@@ -41,14 +40,14 @@ export class AuthResource {
         }
       })
       .then((r) => r.data);
-  travelData = (country: string): Promise<TravelDataResponse> =>
+  /*travelData = (country: string): Promise<TravelDataResponse> =>
     this.axios
       .get('traveldatabycountry', {
         params: {
           country: country
         }
       })
-      .then((r) => r.data);
+      .then((r) => r.data);*/
   tests = (country: string): Promise<TestsResponse> =>
     this.axios
       .get('testsbycountry', {
@@ -57,12 +56,15 @@ export class AuthResource {
         }
       })
       .then((r) => r.data);
-  whatIf = (country: string): Promise<DayOneResponse> =>
+  /*whatIf = (country: string): Promise<DayOneResponse> =>
     this.axios
       .get('whatifbycountry', {
         params: {
           country: country
         }
       })
-      .then((r) => r.data);
+      .then((r) => r.data);*/
+
+  whatIfPost = (data: WhatIfRequest): Promise<any> => this.axios.post('s', data, this.axiosRequestConfig).then((r) => r.data);
+
 }

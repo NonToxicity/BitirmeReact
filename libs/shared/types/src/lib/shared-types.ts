@@ -2,7 +2,6 @@ export const ACCESS_TOKEN = 'access_token';
 export const REFRESH_TOKEN = 'refresh_token';
 export const USER_NAME = 'user_name';
 
-
 export interface UpdateRequest {
   username: string;
   email?: string;
@@ -14,7 +13,7 @@ export interface UpdateRequest {
 }
 
 export interface LogoutRequest {
-  accessToken:string;
+  accessToken: string;
 }
 
 export interface ResetPasswordRequest {
@@ -27,4 +26,15 @@ export interface ChangePasswordRequest {
   oldPassword: string;
   newPassword: string;
   newPasswordConfirmation: string;
+}
+
+export interface WhatIfRequest {
+  countryName: string;
+  firstDate: string;
+  secondDate: string;
+  handwash: string;
+  oldPeopleNumber: string;
+  restriction: string;
+  smokerNumber: string;
+  mask: string;
 }

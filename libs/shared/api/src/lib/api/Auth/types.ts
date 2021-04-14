@@ -1,10 +1,10 @@
 export interface UserDetailResponse {
-  Username: string;
-  Name: string;
-  LastName: string;
-  Email: string;
-  PhoneNumber: string;
-  Age: string;
+  username: string;
+  name: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  age: string;
 }
 export interface StatusResponse{
   ID:string,
@@ -54,16 +54,16 @@ export interface DayOneResponse {
   Date: string;
 }
 export interface UserInfoResponse {
-  Username: string;
-  Name: string;
-  LastName: string;
-  Age: string;
-  Image: string;
+  username: string;
+  name: string;
+  lastName: string;
+  age: string;
+  image: string;
 }
 
 export interface Pageable {
-  First: boolean;
-  Last: boolean;
-  Content: any;
+  first: boolean;
+  last: boolean;
+  content: any;
 }
 

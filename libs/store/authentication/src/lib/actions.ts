@@ -4,7 +4,7 @@ import {
   ChangePasswordRequest,
   LogoutRequest,
   ResetPasswordRequest,
-  UpdateRequest
+  UpdateRequest, WhatIfRequest
 } from '@internship/shared/types';
 
 
@@ -33,3 +33,8 @@ export const changePasswordAsync = createAsyncAction(
   '@Authentication/CHANGE_PASSWORD_SUCCESS',
   '@Authentication/CHANGE_PASSWORD_FAILURE'
 )<ChangePasswordRequest, any, AxiosError>();
+
+
+export const whatIfAsync = createAsyncAction('@WHATIF_REQUEST', '@WHATIF_SUCCESS', '@WHATIF_FAILURE')<WhatIfRequest,
+  any,
+  AxiosError>();

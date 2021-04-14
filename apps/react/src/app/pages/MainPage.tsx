@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { loadMapApi } from '@internship/shared/utils';
 import { MyMap } from '@internship/ui';
 import Calendar from 'react-calendar';
-import moment from 'moment'
 
 const StyledDiv = styled.div`
   margin-bottom: 1rem;
@@ -17,14 +16,14 @@ const StyledBottom = styled.div``;
 export const MainPage = () => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [date, setDate] = useState(new Date());
-  const [countryName, setCountryName] = useState('Türkiye');
+  const [countryName, setCountryName] = useState('Turkey');
   const [cityName, setCityName] = useState('Ankara');
   useEffect(() => {
     const googleMapScript = loadMapApi();
     googleMapScript.addEventListener('load', function () {
       setScriptLoaded(true);
     });
-  }, [countryName]);
+  }, [countryName,date]);
 
   /*useEffect(() => {
     api.auth
@@ -42,10 +41,6 @@ export const MainPage = () => {
       </StyledDiv>
       <StyledBottom>
         <StyledCalendar onChange={setDate} value={date} />
-        {cityName}
-        <br />
-        {countryName}
-        <br />
       </StyledBottom>
     </>
   );
