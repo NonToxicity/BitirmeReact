@@ -1,8 +1,8 @@
 import axiosStatic, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import {
   CountriesResponse,
-  DayOneResponse,
-  SummaryResponse,
+  DayOneResponse, StatusResponse,
+  SummaryResponse, TestsResponse, TravelDataResponse,
   UserDetailResponse,
   UserInfoResponse
 } from './types';
@@ -33,7 +33,7 @@ export class AuthResource {
       .then((r) => r.data);
   countries = (): Promise<CountriesResponse> => this.axios.get('countries', this.axiosRequestConfig).then((r) => r.data);
   summary = (): Promise<SummaryResponse> => this.axios.get('summary', this.axiosRequestConfig).then((r) => r.data);
-  status = (country: string): Promise<DayOneResponse> =>
+  status = (country: string): Promise<StatusResponse> =>
     this.axios
       .get('statusbycountry', {
         params: {
@@ -41,7 +41,7 @@ export class AuthResource {
         }
       })
       .then((r) => r.data);
-  travelData = (country: string): Promise<DayOneResponse> =>
+  travelData = (country: string): Promise<TravelDataResponse> =>
     this.axios
       .get('traveldatabycountry', {
         params: {
@@ -49,7 +49,7 @@ export class AuthResource {
         }
       })
       .then((r) => r.data);
-  tests = (country: string): Promise<DayOneResponse> =>
+  tests = (country: string): Promise<TestsResponse> =>
     this.axios
       .get('testsbycountry', {
         params: {
