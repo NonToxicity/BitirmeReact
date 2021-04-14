@@ -49,8 +49,6 @@ export const Profile = () => {
           <div className="card text-center">
             <div className="card-header">
               <h3>Welcome</h3>
-              <ProfileImage width="200" height="200" alt={`${detail?.username} profile picture`}
-                            image={detail?.image} />
             </div>
             <h5>
               <div>
