@@ -1,44 +1,69 @@
 export interface UserDetailResponse {
-  username: string;
-  name: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  age: string;
+  Username: string;
+  Name: string;
+  LastName: string;
+  Email: string;
+  PhoneNumber: string;
+  Age: string;
+}
+export interface StatusResponse{
+  ID:string,
+  Country:string,
+  Lat:string,
+  Lon:string,
+  Confirmed:string,
+  Deaths:string,
+  Recovered:string,
+  Active:string,
+  Date:string
+}
+/*export interface TravelDataResponse{
+
+}*/
+export interface TestsResponse{
+  ID:string,
+  Date:string,
+  DailyChangeCumulativeTotal:string,
+  CumulativeTotal:string,
+  CumulativeTotalPerThousand:string,
+  DailyChangeCumulativeTotalPerThousand:string,
+  SevenDaySmoothedDailyChange:string,
+  SevenDaySmoothDailyChangePerThousand:string
+
 }
 export interface CountriesResponse {
-  country: string;
+  Country: string;
 }
 
 export interface SummaryResponse {
-  global: any;
-  countries: any;
-  date: string;
+  Global: any;
+  Countries: any;
+  Date: string;
 }
 
 export interface DayOneResponse {
-  country: string;
-  countryCode: string;
+  Country: string;
+  CountryCode: string;
   province: string;
-  city: string;
-  cityCode: string;
-  lat: string;
-  lon: string;
-  cases: string;
-  status: string;
-  date: string;
+  City: string;
+  CityCode: string;
+  Lat: string;
+  Lon: string;
+  Cases: string;
+  Status: string;
+  Date: string;
 }
 export interface UserInfoResponse {
-  username: string;
-  name: string;
-  lastName: string;
-  age: string;
-  image: string;
+  Username: string;
+  Name: string;
+  LastName: string;
+  Age: string;
+  Image: string;
 }
 
 export interface Pageable {
-  first: boolean;
-  last: boolean;
-  content: any;
+  First: boolean;
+  Last: boolean;
+  Content: any;
 }
 
