@@ -10,13 +10,13 @@ export interface CountriesResponse {
   country: string;
 }
 
-export interface summaryResponse {
+export interface SummaryResponse {
   global: any;
   countries: any;
   date: string;
 }
 
-export interface dayOneResponse {
+export interface DayOneResponse {
   country: string;
   countryCode: string;
   province: string;

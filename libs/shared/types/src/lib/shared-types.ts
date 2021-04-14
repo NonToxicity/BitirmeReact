@@ -15,7 +15,6 @@ export interface UpdateRequest {
 
 export interface LogoutRequest {
   accessToken:string;
-  refreshToken:string;
 }
 
 export interface ResetPasswordRequest {

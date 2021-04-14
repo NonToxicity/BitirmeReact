@@ -7,7 +7,7 @@ import {
 } from './actions';
 import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
 import { api } from '@internship/shared/api';
-import { removeAccessToken, removeRefreshToken, removeUserName } from '@internship/shared/utils';
+import { removeAccessToken, removeUserName } from '@internship/shared/utils';
 
 function* doResetPassword({ payload }) {
   try {
@@ -23,7 +23,6 @@ function doUpdateLogout() {
   if (localStorage.getItem('access_token')) {
     localStorage.removeItem('cloud_users');
     removeAccessToken();
-    removeRefreshToken();
     removeUserName();
   }
 }
@@ -35,7 +34,6 @@ function* doLogout({ payload }) {
     if (localStorage.getItem('access_token')) {
       localStorage.removeItem('cloud_users');
       removeAccessToken();
-      removeRefreshToken();
       removeUserName();
     }
   } catch (e) {

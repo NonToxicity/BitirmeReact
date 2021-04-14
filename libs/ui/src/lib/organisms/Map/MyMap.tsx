@@ -18,7 +18,6 @@ type GoogleMap = google.maps.Map;
 type GoogleMarker = google.maps.Marker;
 
 export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false}) => {
-
     const ref = useRef<HTMLDivElement>(null);
     const [map, setMap] = useState<GoogleMap>();
     const [marker, setMarker] = useState<IMarker>();
@@ -48,6 +47,7 @@ export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false}) => {
         const geocoder = new google.maps.Geocoder();
         await geocoder.geocode({ location: coordinate}, function (results, status) {
             if (status === 'OK') {
+                setMap(null);
                 setMarker({
                     address: results[0].formatted_address,
                     latitude: coordinate.lat(),
@@ -63,6 +63,7 @@ export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false}) => {
         }
     };
     useEffect(addSingleMarker, [marker]);
+
 
     const addMarker = (location: GoogleLatLng): void => {
         const marker:GoogleMarker = new google.maps.Marker({

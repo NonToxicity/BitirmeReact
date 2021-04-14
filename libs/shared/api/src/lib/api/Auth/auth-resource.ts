@@ -1,5 +1,11 @@
 import axiosStatic, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import {CountriesResponse, dayOneResponse, UserDetailResponse, UserInfoResponse} from './types';
+import {
+  CountriesResponse,
+  DayOneResponse,
+  SummaryResponse,
+  UserDetailResponse,
+  UserInfoResponse
+} from './types';
 import {
   ChangePasswordRequest,
   LogoutRequest,
@@ -14,11 +20,10 @@ export class AuthResource {
   logout = (data: LogoutRequest): Promise<any> => this.axios.post('user/logout', data, this.axiosRequestConfig).then((r) => r.data);
   resetPassword = (data: ResetPasswordRequest): Promise<any> =>
     this.axios.post('user/create-new-password', data, this.axiosRequestConfig).then((r) => r.data);
-  countries = (): Promise<CountriesResponse> => this.axios.get('countries', this.axiosRequestConfig).then((r) => r.data);
   changePassword = (data: ChangePasswordRequest): Promise<any> =>
     this.axios.post('user/change-password', data, this.axiosRequestConfig).then((r) => r.data);
   userDetail = (): Promise<UserDetailResponse> => this.axios.get('user/', this.axiosRequestConfig).then((r) => r.data);
-  dayone = (country: string): Promise<dayOneResponse> =>
+  dayone = (country: string): Promise<DayOneResponse> =>
     this.axios
       .get('dayone', {
         params: {
@@ -26,6 +31,38 @@ export class AuthResource {
         }
       })
       .then((r) => r.data);
-
-
+  countries = (): Promise<CountriesResponse> => this.axios.get('countries', this.axiosRequestConfig).then((r) => r.data);
+  summary = (): Promise<SummaryResponse> => this.axios.get('summary', this.axiosRequestConfig).then((r) => r.data);
+  status = (country: string): Promise<DayOneResponse> =>
+    this.axios
+      .get('statusbycountry', {
+        params: {
+          country: country
+        }
+      })
+      .then((r) => r.data);
+  travelData = (country: string): Promise<DayOneResponse> =>
+    this.axios
+      .get('traveldatabycountry', {
+        params: {
+          country: country
+        }
+      })
+      .then((r) => r.data);
+  tests = (country: string): Promise<DayOneResponse> =>
+    this.axios
+      .get('testsbycountry', {
+        params: {
+          country: country
+        }
+      })
+      .then((r) => r.data);
+  whatIf = (country: string): Promise<DayOneResponse> =>
+    this.axios
+      .get('whatifbycountry', {
+        params: {
+          country: country
+        }
+      })
+      .then((r) => r.data);
 }

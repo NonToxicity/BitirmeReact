@@ -6,7 +6,7 @@ import { useAuthentication } from '@internship/shared/hooks';
 import { logoutAsync } from '@internship/store/authentication';
 import { useDispatch } from 'react-redux';
 import { Popup, PopupButton } from '../../molecules';
-import { getAccessToken, getRefreshToken } from '@internship/shared/utils';
+import { getAccessToken } from '@internship/shared/utils';
 import styled from 'styled-components';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -36,7 +36,6 @@ export const Navigation = () => {
   };
   const tokens = {
     accessToken: getAccessToken(),
-    refreshToken: getRefreshToken()
   };
 
   const handleShow = () => {
