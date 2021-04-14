@@ -5,7 +5,28 @@ export interface UserDetailResponse {
   email: string;
   phoneNumber: string;
   age: string;
-  image: string;
+}
+export interface CountriesResponse {
+  country: string;
+}
+
+export interface summaryResponse {
+  global: any;
+  countries: any;
+  date: string;
+}
+
+export interface dayOneResponse {
+  country: string;
+  countryCode: string;
+  province: string;
+  city: string;
+  cityCode: string;
+  lat: string;
+  lon: string;
+  cases: string;
+  status: string;
+  date: string;
 }
 export interface UserInfoResponse {
   username: string;

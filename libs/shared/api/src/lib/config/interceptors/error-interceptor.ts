@@ -20,8 +20,6 @@ export const errorInterceptor = (error: AxiosError) => {
     errorMessage = err[error.config.url]['108'];
   } else if (error.response?.data.message.toString() === '109') {
     errorMessage = err[error.config.url]['109'];
-  } else {
-    errorMessage = err[error.config.url][error.response?.status];
   }
 
   window['UGLY_STORE'].dispatch({ type: '@temp/ERROR_REQUIRED', payload: errorMessage });

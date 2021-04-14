@@ -2,16 +2,15 @@ import axiosStatic, { AxiosRequestConfig } from 'axios';
 import {
   loginInterceptor,
   tokenInterceptor,
-  refreshTokenInterceptor,
   errorInterceptor,
   successInterceptor,
 } from './interceptors';
 
 
-const baseUrl = 'http://localhost:8080';
+const baseUrl = 'https://whatifworld.herokuapp.com';
 
 const defaultConfig: AxiosRequestConfig = {
-  baseURL: `${baseUrl}/api/`,
+  baseURL: `${baseUrl}/`,
 };
 
 export function createAxios(baseConfig: AxiosRequestConfig) {
@@ -23,7 +22,7 @@ export function createAxios(baseConfig: AxiosRequestConfig) {
   // Response Interceptors
   instance.interceptors.response.use(loginInterceptor);
 
-  instance.interceptors.response.use((c) =>c, refreshTokenInterceptor);
+  /*instance.interceptors.response.use((c) =>c, refreshTokenInterceptor);*/
   instance.interceptors.response.use((c) =>c, errorInterceptor);
   instance.interceptors.response.use(successInterceptor);
   return instance;

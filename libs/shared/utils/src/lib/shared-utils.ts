@@ -26,7 +26,7 @@ export const getUrlParameter = (name, search) => {
 };
 
 export const loadMapApi = () => {
-  const mapsURL = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBEn7yQO2-MvbKL9n7rTM9OkrhRyFWaKkc&libraries=places&language=TR&region=TR&v=quarterly`;
+  const mapsURL = `https://maps.googleapis.com/maps/api/js?key=&libraries=places&language=TR&region=TR&v=quarterly`;
   const scripts = document.getElementsByTagName('script');
   for (let i = 0; i < scripts.length; i++) {
     if (scripts[i].src.indexOf(mapsURL) === 0) {
