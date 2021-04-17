@@ -35,6 +35,6 @@ export const changePasswordAsync = createAsyncAction(
 )<ChangePasswordRequest, any, AxiosError>();
 
 
-export const whatIfAsync = createAsyncAction('@WHATIF_REQUEST', '@WHATIF_SUCCESS', '@WHATIF_FAILURE')<WhatIfRequest,
+/*export const whatIfAsync = createAsyncAction('@WHATIF_REQUEST', '@WHATIF_SUCCESS', '@WHATIF_FAILURE')<WhatIfRequest,
   any,
-  AxiosError>();
+  AxiosError>();*/

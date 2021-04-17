@@ -8,6 +8,7 @@ interface IMap {
   mapTypeControl?: boolean;
   setCountryName;
   setCityName;
+  countries?;
 }
 
 interface IMarker {
@@ -19,11 +20,11 @@ interface IMarker {
 type GoogleLatLng = google.maps.LatLng;
 type GoogleMap = google.maps.Map;
 type GoogleMarker = google.maps.Marker;
-
-export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false, setCountryName, setCityName }) => {
+export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false, setCountryName, setCityName, countries }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<GoogleMap>();
   const [marker, setMarker] = useState<IMarker>();
+  var circles = [];
 
   const startMap = (): void => {
     if (!map) {
@@ -37,7 +38,30 @@ export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false, setCoun
     initMap(4, defaultAddress);
   };
 
+  function removeAllcircles() {
+    for(var i in circles) {
+      circles[i].setMap(null);
+    }
+    circles = [];
+  }
+
   const initEventListener = (): void => {
+    //removeAllcircles();
+    for (var i = 0;i<countries?.length;i++) {
+        const cityCircle = new google.maps.Circle({
+        strokeColor: "#ff0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#ff0000",
+        fillOpacity: 0.35,
+        map:map,
+        center: {lat:countries[i].lat, lng:countries[i].lng},
+        radius: Math.sqrt(countries[i].population) * 80,
+      });
+      circles.push(cityCircle);
+    }
+
+
     if (map) {
       google.maps.event.addListener(map, 'click', function (e) {
         coordinateToAddress(e.latLng);
@@ -48,7 +72,7 @@ export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false, setCoun
 
   const coordinateToAddress = async (coordinate: GoogleLatLng) => {
     const geocoder = new google.maps.Geocoder();
-    await geocoder.geocode({ location: coordinate }, function (results, status, plus_code) {
+    await geocoder.geocode({ location: coordinate }, function (results, status) {
       if (status === 'OK') {
         setMap(null);
         var details = results[0].address_components;
@@ -67,10 +91,7 @@ export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false, setCoun
               console.log('postal_town=' + city);
             } else if (details[i].types[j] == 'administrative_area_level_2') {
               city = details[i].long_name;
-              console.log('admin_area_2=' + city);
             }
-            // from "google maps API geocoding get address components"
-            // https://stackoverflow.com/questions/50225907/google-maps-api-geocoding-get-address-components
             if (details[i].types[j] == 'country') {
               country = details[i].long_name;
             }

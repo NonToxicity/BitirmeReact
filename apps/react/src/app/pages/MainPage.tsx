@@ -18,12 +18,16 @@ export const MainPage = () => {
   const [date, setDate] = useState(new Date());
   const [countryName, setCountryName] = useState('Turkey');
   const [cityName, setCityName] = useState('Ankara');
+
   useEffect(() => {
+  }, []);
+  useEffect(() => {
+    console.log(scriptLoaded);
     const googleMapScript = loadMapApi();
     googleMapScript.addEventListener('load', function () {
       setScriptLoaded(true);
     });
-  }, [countryName,date]);
+  }, []);
 
   /*useEffect(() => {
     api.auth

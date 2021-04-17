@@ -29,7 +29,10 @@ export interface TestsResponse{
   DailyChangeCumulativeTotalPerThousand:string,
   SevenDaySmoothedDailyChange:string,
   SevenDaySmoothDailyChangePerThousand:string
+}
 
+export interface WhatIfResponse {
+  info:any
 }
 export interface CountriesResponse {
   Country: string;

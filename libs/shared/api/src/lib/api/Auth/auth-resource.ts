@@ -3,7 +3,7 @@ import {
   CountriesResponse,
   DayOneResponse, StatusResponse,
   SummaryResponse, TestsResponse,
-  UserDetailResponse,
+  UserDetailResponse, WhatIfResponse,
 } from './types';
 import {
   ChangePasswordRequest,
@@ -56,7 +56,7 @@ export class AuthResource {
         }
       })
       .then((r) => r.data);
-  /*whatIf = (country: string): Promise<DayOneResponse> =>
+  /*whatIf = (country: string): Promise<totalResponse> =>
     this.axios
       .get('whatifbycountry', {
         params: {
@@ -65,6 +65,12 @@ export class AuthResource {
       })
       .then((r) => r.data);*/
 
-  whatIfPost = (data: WhatIfRequest): Promise<any> => this.axios.post('s', data, this.axiosRequestConfig).then((r) => r.data);
-
+  whatIfGet = (data: WhatIfRequest): Promise<any> =>
+    this.axios
+      .get('s', {
+        params: {
+          data: data
+        }
+      })
+      .then((r) => r.data);
 }

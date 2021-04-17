@@ -4,9 +4,8 @@ import { loadMapApi } from '@internship/shared/utils';
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { whatIfAsync } from '@internship/store/authentication';
 import { Col, Row } from 'react-bootstrap';
+import { api } from '@internship/shared/api';
 
 const StyledDiv = styled.div`
   margin-bottom: 1rem;
@@ -27,6 +26,17 @@ const StyledLabel = styled.label`
   margin-left: 2rem;
   margin-bottom: 1rem;
 `;
+interface City {
+  center: google.maps.LatLngLiteral;
+  population: number;
+}
+
+interface center {
+  lat;
+  lng;
+  population;
+  countryName;
+}
 
 export const WhatIf = () => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
@@ -40,11 +50,20 @@ export const WhatIf = () => {
   const [restriction, setRestriction] = useState('20');
   const [smokerNumber, setSmokerNumber] = useState('20');
   const [mask, setMask] = useState('20');
-  const dispatch = useDispatch();
+  const [countries, setCountries] = useState<center | center[]>([]);
 
   const onSubmit = (values) => {
     values = { ...values, countryName, firstDate, secondDate };
-    dispatch(whatIfAsync.request(values));
+    api.auth
+      .whatIfGet(values)
+      .then((r) => {
+        {
+          for (var i = 0; i < r.length; i++) {
+            countries.push({ lat: r[i]?.lat, lng: r[i]?.lng, population: r[i]?.population, countryName: r[i]?.countryName });
+          }
+        }
+      })
+      .catch((e) => console.error(e));
   };
 
   useEffect(() => {
@@ -59,7 +78,13 @@ export const WhatIf = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <StyledDiv>
           {scriptLoaded && (
-            <MyMap mapType={google.maps.MapTypeId.ROADMAP} mapTypeControl={true} setCountryName={setCountryName} setCityName={setCityName} />
+            <MyMap
+              mapType={google.maps.MapTypeId.ROADMAP}
+              mapTypeControl={true}
+              setCountryName={setCountryName}
+              setCityName={setCityName}
+              countries={countries}
+            />
           )}
         </StyledDiv>
         <Row>
@@ -189,7 +214,7 @@ export const WhatIf = () => {
         </MarginRow>
         <MarginRow>
           <Col sm={3}>
-            {firstDate.getDate()}.{firstDate.getMonth()+1}.{firstDate.getFullYear()}
+            {firstDate.getDate()}.{firstDate.getMonth() + 1}.{firstDate.getFullYear()}
           </Col>
           <Col sm={6}>
             <Row>
@@ -198,7 +223,7 @@ export const WhatIf = () => {
             </Row>
           </Col>
           <Col sm={3}>
-            {secondDate.getDate()}.{secondDate.getMonth()+1}.{secondDate.getFullYear()}
+            {secondDate.getDate()}.{secondDate.getMonth() + 1}.{secondDate.getFullYear()}
           </Col>
         </MarginRow>
         <StyledRow>
