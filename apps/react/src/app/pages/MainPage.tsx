@@ -22,6 +22,7 @@ export const MainPage = () => {
   const [countryName, setCountryName] = useState('Turkey');
   const [cityName, setCityName] = useState('Ankara');
   const [show, setShow] = useState(false);
+  const [showSecond, setShowSecond] = useState(false);
   const [deathNumber, setDeathNumber] = useState(0);
   const [recoveryNumber, setRecoveryNumber] = useState(0);
   const [caseNumber, setCaseNumber] = useState(0);
@@ -45,9 +46,16 @@ export const MainPage = () => {
 
   const func = () => {
     setShow(true);
+    setShowSecond(false);
     setDeathNumber(175);
     setRecoveryNumber(3273);
     setCaseNumber(48237);
+  };
+  const funcc = () => {
+    setShowSecond(true);
+    setDeathNumber(412);
+    setRecoveryNumber(8450);
+    setCaseNumber(9850);
   };
 
   return (
@@ -91,9 +99,14 @@ export const MainPage = () => {
           ):null}
         </Row>
       <StyledRow>
-        <Button variant="outline-primary" type="submit" onClick={func}>
+        {show ? (
+          <Button variant="outline-primary" type="submit" onClick={funcc}>
+            Submit
+          </Button>):
+          (<Button variant="outline-primary" type="submit" onClick={func}>
           Submit
-        </Button>
+        </Button>)}
+
       </StyledRow>
 
 

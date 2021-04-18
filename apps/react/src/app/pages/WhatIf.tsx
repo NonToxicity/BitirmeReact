@@ -51,6 +51,8 @@ export const WhatIf = () => {
   const [smokerNumber, setSmokerNumber] = useState('20');
   const [mask, setMask] = useState('20');
   const [countries, setCountries] = useState<center | center[]>([]);
+  const data = require('./data.json');
+  const [addCircle, setAddCircle] = useState(false);
 
   const onSubmit = (values) => {
     values = { ...values, countryName, firstDate, secondDate };
@@ -64,6 +66,7 @@ export const WhatIf = () => {
         }
       })
       .catch((e) => console.error(e));
+
   };
 
   useEffect(() => {
@@ -71,7 +74,14 @@ export const WhatIf = () => {
     googleMapScript.addEventListener('load', function () {
       setScriptLoaded(true);
     });
-  }, [countryName]);
+  }, [countryName,addCircle]);
+
+  const checkCircle = () => {
+    setAddCircle(true);
+    for(var i=0; i<data.length;i++){
+      countries.push({ lat: Number(data[i]?.Lat), lng: Number(data[i]?.Lon), population: Number(data[i]?.Cases), countryName: data[i]?.Country });
+    }
+  };
 
   return (
     <>
@@ -84,6 +94,7 @@ export const WhatIf = () => {
               setCountryName={setCountryName}
               setCityName={setCityName}
               countries={countries}
+              addCircle={addCircle}
             />
           )}
         </StyledDiv>
@@ -227,7 +238,7 @@ export const WhatIf = () => {
           </Col>
         </MarginRow>
         <StyledRow>
-          <Button variant="outline-primary" type="submit">
+          <Button variant="outline-primary" type="submit" onClick={checkCircle}>
             Submit
           </Button>
         </StyledRow>

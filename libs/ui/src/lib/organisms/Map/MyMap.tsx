@@ -9,6 +9,7 @@ interface IMap {
   setCountryName;
   setCityName;
   countries?;
+  addCircle?;
 }
 
 interface IMarker {
@@ -20,7 +21,7 @@ interface IMarker {
 type GoogleLatLng = google.maps.LatLng;
 type GoogleMap = google.maps.Map;
 type GoogleMarker = google.maps.Marker;
-export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false, setCountryName, setCityName, countries }) => {
+export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false, setCountryName, setCityName, countries,addCircle }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<GoogleMap>();
   const [marker, setMarker] = useState<IMarker>();
@@ -46,22 +47,6 @@ export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false, setCoun
   }
 
   const initEventListener = (): void => {
-    //removeAllcircles();
-    for (var i = 0;i<countries?.length;i++) {
-        const cityCircle = new google.maps.Circle({
-        strokeColor: "#ff0000",
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: "#ff0000",
-        fillOpacity: 0.35,
-        map:map,
-        center: {lat:countries[i].lat, lng:countries[i].lng},
-        radius: Math.sqrt(countries[i].population) * 80,
-      });
-      circles.push(cityCircle);
-    }
-
-
     if (map) {
       google.maps.event.addListener(map, 'click', function (e) {
         coordinateToAddress(e.latLng);
@@ -69,6 +54,24 @@ export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false, setCoun
     }
   };
   useEffect(initEventListener, [map]);
+
+  const addCircleListener = (): void => {
+    removeAllcircles();
+    for (var i = 0;i<countries?.length;i++) {
+      const cityCircle = new google.maps.Circle({
+        strokeColor: "#ff0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#ff0000",
+        fillOpacity: 0.35,
+        map:map,
+        center: {lat:countries[i].lat, lng:countries[i].lng},
+        radius: Math.sqrt(countries[i].population) * 100,
+      });
+      circles.push(cityCircle);
+    }
+  };
+  useEffect(addCircleListener, [addCircle]);
 
   const coordinateToAddress = async (coordinate: GoogleLatLng) => {
     const geocoder = new google.maps.Geocoder();
@@ -115,7 +118,6 @@ export const MyMap: React.FC<IMap> = ({ mapType, mapTypeControl = false, setCoun
     }
   };
   useEffect(addSingleMarker, [marker]);
-
   const addMarker = (location: GoogleLatLng): void => {
     const marker: GoogleMarker = new google.maps.Marker({
       position: location,
