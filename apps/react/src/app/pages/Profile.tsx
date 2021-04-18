@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { ChangePassword, EditProfile } from './profilePageComponents';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { api, UserDetailResponse } from '@internship/shared/api';
-import { ProfileImage } from '@internship/ui';
 import { useAuthentication } from '@internship/shared/hooks';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
